@@ -16,7 +16,12 @@ let firstNumber, secondNumber, operator, result;
 window.addEventListener("DOMContentLoaded", setup);
 
 function setup() {
-	console.log("We Are Live");
+	operatorInput.value = "add";
+	rounding.value = "0";
+	doRound.checked = false;
+	clearResults();
+
+	resultsList.textContent = "";
 	calculateBtn.addEventListener("click", calculate);
 	clearBtn.addEventListener("click", clearResults);
 }
@@ -43,19 +48,23 @@ function calculate() {
 			result = firstNumber / secondNumber;
 			break;
 	}
-	console.log(rounding.value, doRound.checked);
 
 	// Rounding on wether doRound is checked
 	if (doRound.checked) {
 		// Show result with rounding
 		resultsList.innerHTML += `<li>${result.toFixed(rounding.value)}</li>`;
+		firstNumberInput.value = result;
 	} else {
 		// Show result in results list
 		resultsList.innerHTML += `<li>${result}</li>`;
+		firstNumberInput.value = result;
 	}
+	resultsList.scrollTop = resultsList.scrollHeight;
 }
 
 function clearResults() {
-	// Clear list of results
+	// Clear
 	resultsList.textContent = "";
+	firstNumberInput.value = "0";
+	secondNumberInput.value = "0";
 }
